@@ -4,7 +4,7 @@
       <div class="text-center text-gray-600 dark:text-gray-400">
         <p>&copy; {{ currentYear }} xubo.live. All rights reserved.</p>
         <p class="mt-2 text-sm">
-          Built with Vue 3, Vite, and Tailwind CSS
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">豫ICP备2025128892号-2</a>
         </p>
       </div>
     </div>
