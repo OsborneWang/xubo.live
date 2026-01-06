@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors;
+  }
+}
+
+@layer components {
+  .prose {
+    @apply max-w-none;
+  }
+  
+  .prose h1 {
+    @apply text-3xl font-bold mb-4 mt-8;
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-semibold mb-3 mt-6;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-semibold mb-2 mt-4;
+  }
+  
+  .prose p {
+    @apply mb-4 leading-7;
+  }
+  
+  .prose code {
+    @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm;
+  }
+  
+  .prose pre {
+    @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
+  
+  .prose ul, .prose ol {
+    @apply mb-4 ml-6;
+  }
+  
+  .prose li {
+    @apply mb-2;
+  }
+  
+  .prose a {
+    @apply text-blue-600 dark:text-blue-400 hover:underline;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic my-4;
+  }
+  
+  .prose img {
+    @apply rounded-lg my-4;
+  }
+  
+  /* 代码高亮样式 */
+  .prose pre code.hljs {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+  
+  .prose code.hljs {
+    @apply bg-transparent;
+  }
+  
+  .hljs {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+  
+  .hljs-comment,
+  .hljs-quote {
+    @apply text-gray-500 dark:text-gray-400 italic;
+  }
+  
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-subst {
+    @apply text-purple-600 dark:text-purple-400 font-semibold;
+  }
+  
+  .hljs-number,
+  .hljs-literal,
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-tag .hljs-attr {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+  
+  .hljs-string,
+  .hljs-doctag {
+    @apply text-green-600 dark:text-green-400;
+  }
+  
+  .hljs-title,
+  .hljs-section,
+  .hljs-selector-id {
+    @apply text-red-600 dark:text-red-400 font-semibold;
+  }
+  
+  .hljs-type,
+  .hljs-class .hljs-title {
+    @apply text-yellow-600 dark:text-yellow-400;
+  }
+  
+  .hljs-tag,
+  .hljs-name,
+  .hljs-attribute {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+  
+  .hljs-regexp,
+  .hljs-link {
+    @apply text-orange-600 dark:text-orange-400;
+  }
+  
+  .hljs-symbol,
+  .hljs-bullet {
+    @apply text-pink-600 dark:text-pink-400;
+  }
+  
+  .hljs-built_in,
+  .hljs-builtin-name {
+    @apply text-indigo-600 dark:text-indigo-400;
+  }
+  
+  .hljs-meta {
+    @apply text-gray-600 dark:text-gray-400;
+  }
+  
+  .hljs-deletion {
+    @apply bg-red-100 dark:bg-red-900;
+  }
+  
+  .hljs-addition {
+    @apply bg-green-100 dark:bg-green-900;
+  }
+  
+  .hljs-emphasis {
+    @apply italic;
+  }
+  
+  .hljs-strong {
+    @apply font-bold;
+  }
+}
+
