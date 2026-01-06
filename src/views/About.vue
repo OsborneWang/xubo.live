@@ -58,14 +58,14 @@
           <div class="space-y-2 text-gray-700 dark:text-gray-300">
             <p>
               <strong>邮箱：</strong>
-              <a href="mailto:contact@xubo.live" class="text-blue-600 dark:text-blue-400 hover:underline">
-                contact@xubo.live
+              <a href="mailto:wang@xubo.live" class="text-blue-600 dark:text-blue-400 hover:underline">
+                wang@xubo.live
               </a>
             </p>
             <p>
               <strong>GitHub：</strong>
-              <a href="https://github.com/xubo" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">
-                github.com/xubo
+              <a href="https://github.com/OsborneWang" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">
+                OsborneWang
               </a>
             </p>
           </div>
