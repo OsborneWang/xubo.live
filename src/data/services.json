@@ -1,0 +1,22 @@
+[
+  {
+    "name": "TV",
+    "url": "https://tv.xubo.live",
+    "description": "媒体与娱乐相关服务，个人网络中的一个播放入口。",
+    "status": "online",
+    "label": "tv.xubo.live"
+  },
+  {
+    "name": "Komari",
+    "url": "https://komari.xubo.live",
+    "description": "监控与基础设施概览，用来观察服务运行状态。",
+    "status": "online",
+    "label": "komari.xubo.live"
+  },
+  {
+    "name": "下一站",
+    "description": "未来可能会放更多工具、笔记、实验项目或新的子域名服务。",
+    "status": "standby",
+    "label": "*.xubo.live"
+  }
+]

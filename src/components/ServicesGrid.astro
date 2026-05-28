@@ -1,0 +1,42 @@
+---
+import servicesData from '../data/services.json';
+import type { Service } from '../data/types';
+
+const services = servicesData as Service[];
+---
+
+<section class="services" id="services" aria-labelledby="services-title">
+  <div class="section-title">
+    <p class="prompt">xubo@live:~$ services --public</p>
+    <h2 id="services-title">服务入口</h2>
+  </div>
+  <div class="service-grid">
+    {services.map((service) => {
+      const content = (
+        <>
+          <span class:list={['service-status', service.status === 'standby' && 'standby']}>
+            {service.status === 'online' && <span class="status-dot" aria-hidden="true"></span>}
+            {service.status}
+          </span>
+          <h3>{service.name}</h3>
+          <p>{service.description}</p>
+          <span class="service-url">{service.label}</span>
+        </>
+      );
+
+      if (service.url) {
+        return (
+          <a class="service-card" href={service.url} rel="noopener noreferrer">
+            {content}
+          </a>
+        );
+      }
+
+      return (
+        <article class="service-card muted-card" aria-label="future service placeholder">
+          {content}
+        </article>
+      );
+    })}
+  </div>
+</section>

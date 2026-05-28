@@ -1,0 +1,16 @@
+---
+import servicesData from '../data/services.json';
+import type { Service } from '../data/types';
+
+const services = servicesData as Service[];
+const linkedServices = services.filter((service) => service.url);
+---
+
+<footer class="footer" aria-label="footer links">
+  <p class="prompt">xubo@live:~$ links</p>
+  <div class="footer-links">
+    {linkedServices.map((service) => (
+      <a href={service.url} rel="noopener noreferrer">{service.name}</a>
+    ))}
+  </div>
+</footer>

@@ -1,0 +1,18 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section class="terminal-panel" id="now" aria-labelledby="now-title">
+  <div class="section-title">
+    <p class="prompt">xubo@live:~$ now</p>
+    <h2 id="now-title">此刻状态</h2>
+  </div>
+  <div class="command-list">
+    {profile.now.map(([label, value]) => (
+      <div>
+        <span>{label}</span>
+        <strong>{value}</strong>
+      </div>
+    ))}
+  </div>
+</section>

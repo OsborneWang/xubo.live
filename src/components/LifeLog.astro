@@ -1,0 +1,21 @@
+---
+import feedData from '../data/feed.json';
+import type { FeedItem } from '../data/types';
+
+const feed = feedData as FeedItem[];
+---
+
+<section class="terminal-panel" id="life-log" aria-labelledby="life-log-title">
+  <div class="section-title">
+    <p class="prompt">xubo@live:~$ tail -f life.log</p>
+    <h2 id="life-log-title">生活流</h2>
+  </div>
+  <ol class="log-list">
+    {feed.map((item) => (
+      <li>
+        <time datetime={item.date}>{item.date}</time>
+        <span>{item.text}</span>
+      </li>
+    ))}
+  </ol>
+</section>

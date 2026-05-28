@@ -1,0 +1,44 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="signal-bar" aria-label="system status">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span>在线 / online</span>
+    <span class="divider">/</span>
+    <span id="local-time">--:--:--</span>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="prompt">xubo@live:~$ whoami</p>
+      <h1 id="hero-title">{profile.title}</h1>
+      <p class="tagline">{profile.tagline}</p>
+      <p class="summary">{profile.summary}</p>
+      <nav class="quick-links" aria-label="primary links">
+        <a href="#now">此刻</a>
+        <a href="#services">服务</a>
+        <a href="#life-log">生活流</a>
+      </nav>
+    </div>
+
+    <aside class="identity-card" aria-label="profile data">
+      <div class="card-header">
+        <span>profile.json</span>
+        <span class="chip">public</span>
+      </div>
+      <pre>{JSON.stringify(
+        {
+          name: profile.name,
+          status: profile.status,
+          roles: profile.roles,
+          interests: profile.interests,
+          domain: profile.domain,
+        },
+        null,
+        2,
+      )}</pre>
+    </aside>
+  </div>
+</section>
