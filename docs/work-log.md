@@ -404,3 +404,243 @@
 ### 后续建议
 
 - 初始化 Git 仓库并推送到 `https://github.com/OsborneWang/xubo.live.git`。
+
+## 2026-05-28 20:20 - 自动化发布方案文档整理
+
+### 背景
+
+用户当前代码仓库托管在 GitHub，并拥有一台 Oracle Cloud VPS，希望了解如何配置自动化发布能力，并要求将方案以文档形式写入当前仓库用于学习研究。
+
+### 目标
+
+- 基于当前 `xubo.live` Astro 静态站项目，设计一套适合第一版落地的自动发布方案。
+- 说明 GitHub Actions、SSH、Nginx、HTTPS、回滚和后续扩展方向。
+- 将方案沉淀为仓库文档。
+
+### 执行内容
+
+- 检查当前项目结构、`package.json` 和 `astro.config.mjs`。
+- 确认当前项目构建方式为 `astro build`，产物输出到 `dist/`。
+- 选择“GitHub Actions 构建 dist + SSH/rsync 上传到 VPS + Nginx 静态托管”作为推荐第一版方案。
+- 编写 VPS 初始化、GitHub Secrets、Actions workflow、Nginx 配置、HTTPS、首次发布、回滚和可选方案对比。
+
+### 修改文件
+
+- `docs/deployment-plan.md`
+- `docs/work-log.md`
+
+### 验证方式
+
+- 已确认新增文档写入成功。
+- 本次为文档方案整理，未修改运行时代码，未执行构建。
+
+### 关键决策
+
+- 当前项目是 Astro 静态站，推荐在 GitHub Actions 中完成构建，VPS 只接收 `dist/` 静态产物。
+- 第一版不推荐在 VPS 上拉源码构建，也暂不推荐引入 Docker，以降低部署复杂度。
+- 生产访问建议由 Nginx 托管静态文件，并使用 Certbot 配置 HTTPS。
+
+### 后续建议
+
+- 根据文档完成 VPS 用户、目录、Nginx 和 HTTPS 初始化。
+- 在 GitHub 仓库配置部署 Secrets。
+- 后续可新增 `.github/workflows/deploy.yml` 真正启用自动发布。
+
+## 2026-05-29 15:44 - 下一阶段体验增强需求与开发计划
+
+### 背景
+
+用户暂时不配置 SSH key 和自动发布，转而希望围绕当前项目继续头脑风暴，并选定 12、14、16、17 四项进行规划：自定义 404 页面、数据结构统一、微动效、亮色/暗色主题切换。
+
+### 目标
+
+- 将选定的增强方向从头脑风暴沉淀为正式需求。
+- 更新开发计划，明确下一阶段实施任务、顺序和验收标准。
+- 保持项目文档和工作记录同步。
+
+### 执行内容
+
+- 在需求文档中补充 `/404` 信息架构和自定义 404 页面需求。
+- 在视觉风格中补充微动效要求、限制和 `prefers-reduced-motion` 可访问性要求。
+- 在视觉风格中补充亮色 / 暗色 / 跟随系统主题切换要求。
+- 在内容维护策略中补充 JSON + TypeScript 类型定义的统一数据结构方向。
+- 在开发计划中新增 Milestone 5：体验增强与内容结构统一。
+- 补充数据建模、样式开发、验证、风险、扩展方向和下一阶段执行顺序。
+
+### 修改文件
+
+- `docs/xubo-live-requirements.md`
+- `docs/xubo-live-development-plan.md`
+- `docs/work-log.md`
+
+### 验证方式
+
+- 已确认文档更新写入成功。
+- 本次只更新需求和计划文档，未修改运行时代码，未执行构建。
+
+### 关键决策
+
+- 下一阶段优先补齐站点完整度和体验质量，而不是引入后端或复杂集成。
+- 微动效优先使用 CSS 实现，不引入额外动画库。
+- 数据结构统一采用 `src/data/*.json` + `src/data/types.ts` 的方向，`profile.ts` 可短期保留，待字段稳定后再迁移。
+- 主题切换需要兼顾系统偏好、持久化和首屏闪烁问题。
+
+### 后续建议
+
+- 下一步可按计划先实现 `src/pages/404.astro`。
+- 然后梳理 `src/data/`，决定是否迁移 `profile.ts`。
+- 主题切换和微动效建议作为同一轮视觉增强实现，并在构建后进行桌面端、移动端和可访问性检查。
+
+## 2026-05-29 16:15 - sub-agent 模式实现 404、数据统一、主题切换与微动效
+
+### 背景
+
+用户确认可以按上一阶段需求和开发计划继续开发，并要求主动启用 sub-agent 工作模式。
+
+### 目标
+
+- 实现自定义 404 页面。
+- 将 `profile` 内容从 TypeScript 对象迁移到 JSON 维护入口。
+- 实现亮色 / 暗色 / 跟随系统主题切换。
+- 增加克制的微动效，并兼容减少动态偏好。
+- 运行构建验证，并同步 README 与工作记录。
+
+### 执行内容
+
+- Planner：按“404 页面 -> 数据结构统一 -> 主题切换 -> 微动效 -> 验证”的顺序拆分任务。
+- Researcher：检查现有页面、组件、数据文件和全局样式，确认当前项目适合小步增强。
+- Implementer：新增 `profile.json`，并让 `profile.ts` 作为类型化兼容导出入口。
+- Implementer：新增 `ThemeToggle`、`ThemeInit`、`PageScripts` 组件，分别负责主题按钮、首屏主题初始化、页面交互脚本。
+- Implementer：在首页 Hero 区域接入主题切换，并将本地时间脚本迁移到统一页面脚本组件。
+- Implementer：新增 `src/pages/404.astro`，提供终端风格错误提示和返回首页入口。
+- Implementer：扩展全局 CSS 变量，支持亮色主题、主题控件、404 布局、状态灯呼吸、卡片/链接 hover 和 `prefers-reduced-motion`。
+- Reviewer：执行 `npm run build`，确认 Astro 构建通过并生成首页与 404 页面。
+- Docs Keeper：更新 `README.md` 内容维护说明和已实现能力说明。
+
+### 修改文件
+
+- `README.md`
+- `src/components/HeroSection.astro`
+- `src/components/PageScripts.astro`
+- `src/components/ThemeInit.astro`
+- `src/components/ThemeToggle.astro`
+- `src/data/profile.json`
+- `src/data/profile.ts`
+- `src/data/types.ts`
+- `src/pages/404.astro`
+- `src/pages/index.astro`
+- `src/styles/global.css`
+- `docs/work-log.md`
+
+### 验证方式
+
+- 已执行 `npm run build`。
+- 构建成功，Astro 生成 2 个页面：`/index.html` 和 `/404.html`。
+- 已通过代码检查确认主题切换入口、`profile.json`、404 页面和 `prefers-reduced-motion` 规则存在。
+
+### 关键决策
+
+- 不删除 `profile.ts`，而是让它从 `profile.json` 读取并导出类型化数据，降低组件改动面。
+- 主题默认保留暗色基础样式；启用脚本后根据用户选择或系统偏好设置 `data-theme`。
+- 主题偏好使用 `localStorage` 持久化，严格隐私环境下失败时自动降级。
+- 微动效只使用 CSS，不引入额外依赖或动画库。
+
+### 后续建议
+
+- 在浏览器中手动检查 `System` / `Dark` / `Light` 三种主题的视觉效果。
+- 检查移动端下主题切换按钮、404 页面和服务卡片布局。
+- 后续可继续把 links、projects、uses 等内容模块数据化。
+
+## 2026-05-29 17:53 - 亮色模式层次与动画效果增强
+
+### 背景
+
+用户反馈亮色模式下整体页面偏朴素，希望提升亮色主题的视觉层次，同时让动画效果更丰富一些。
+
+### 目标
+
+- 增强亮色模式下的层次感、科技感和视觉记忆点。
+- 增加更明显但仍克制的动态效果。
+- 保持不引入新依赖，继续兼容 `prefers-reduced-motion`。
+
+### 执行内容
+
+- 增加亮色主题专用的光晕、卡片高光、扫光和文字发光变量。
+- 为页面背景增加多层径向渐变光晕，并添加低速漂移动画。
+- 为主标题在亮色模式下增加渐变文字效果。
+- 为面板增加入场动画和周期性轻扫光效果。
+- 为身份卡片和服务卡片增加 hover 扫光效果。
+- 增强服务卡片 hover 时的上浮、饱和度和阴影反馈。
+- 保留 `prefers-reduced-motion` 规则，用户偏好减少动态时会弱化动画。
+
+### 修改文件
+
+- `src/styles/global.css`
+- `docs/work-log.md`
+
+### 验证方式
+
+- 已执行 `npm run build`。
+- 构建成功，Astro 生成 2 个页面：`/index.html` 和 `/404.html`。
+
+### 关键决策
+
+- 本轮只调整 CSS，不修改页面结构和数据结构。
+- 动画增强仍以 CSS 为主，不引入动画库。
+- 亮色模式通过渐变、光晕、阴影和卡片高光提升质感，而不是改变整体信息架构。
+
+### 后续建议
+
+- 在浏览器中重点检查 Light 主题是否仍然过亮或过花。
+- 如果动画感觉过多，可降低 `panel-sheen` 频率或关闭周期性扫光，只保留 hover 动效。
+- 后续可考虑给 Hero 区域增加更细腻的终端光标或命令行 typing 效果。
+
+## 2026-05-29 18:00 - 主题策略调整为默认暗色
+
+### 背景
+
+用户确认不需要跟随系统主题，希望站点默认颜色固定为暗色。
+
+### 目标
+
+- 移除 `System` 主题选项。
+- 默认主题固定为 `dark`。
+- 保留 `Dark` / `Light` 手动切换。
+- 继续使用 `localStorage` 持久化用户手动选择。
+- 同步更新 README、需求文档、开发计划和工作记录。
+
+### 执行内容
+
+- 修改 `ThemeToggle`，移除 `System` 按钮，仅保留 `Dark` 和 `Light`。
+- 修改 `ThemeInit`，未设置偏好时默认写入 `dark`。
+- 修改 `PageScripts`，移除 `matchMedia('(prefers-color-scheme: dark)')` 和系统主题监听逻辑。
+- 更新 README 中的主题能力说明。
+- 更新需求文档与开发计划，将主题策略改为“默认暗色 + 亮色/暗色手动切换”。
+- 执行构建验证。
+
+### 修改文件
+
+- `README.md`
+- `docs/xubo-live-requirements.md`
+- `docs/xubo-live-development-plan.md`
+- `docs/work-log.md`
+- `src/components/ThemeToggle.astro`
+- `src/components/ThemeInit.astro`
+- `src/components/PageScripts.astro`
+
+### 验证方式
+
+- 已检查运行代码中不存在 `data-theme-option="system"` 和 `prefers-color-scheme` 主题跟随逻辑。
+- 已执行 `npm run build`。
+- 构建成功，Astro 生成 2 个页面：`/index.html` 和 `/404.html`。
+
+### 关键决策
+
+- 暗色主题作为站点默认品牌视觉，不再跟随用户系统主题。
+- 亮色主题仍作为手动可选项保留。
+- 如果历史 `localStorage` 中保存过旧的 `system` 值，新逻辑会自动回退到 `dark`。
+
+### 后续建议
+
+- 浏览器中清空或无 `xubo-theme` 本地存储时，应默认显示暗色主题。
+- 如已保存 `light`，刷新后仍应保持亮色；点击 `Dark` 后应恢复暗色并持久化。

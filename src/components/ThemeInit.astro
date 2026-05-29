@@ -1,0 +1,17 @@
+<script is:inline>
+  (() => {
+    const storageKey = 'xubo-theme';
+    const options = ['dark', 'light'];
+
+    try {
+      const saved = window.localStorage.getItem(storageKey);
+      const theme = options.includes(saved) ? saved : 'dark';
+
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.dataset.themePreference = theme;
+    } catch {
+      document.documentElement.dataset.theme = 'dark';
+      document.documentElement.dataset.themePreference = 'dark';
+    }
+  })();
+</script>

@@ -1,0 +1,16 @@
+{
+  "name": "Xubo",
+  "status": "online",
+  "domain": "xubo.live",
+  "title": "This is Xubo",
+  "tagline": "个人名片 / 生活流 / Service Hub",
+  "summary": "这里是我的个人入口：放一些正在运行的服务、近期折腾的记录，以及我在互联网上留下的一点实时痕迹。保持在线，慢慢构建。",
+  "roles": ["开发者", "折腾者", "自托管玩家"],
+  "interests": ["coding", "homelab", "automation", "media"],
+  "now": [
+    ["正在构建", "xubo.live 个人主页"],
+    ["正在运行", "tv.xubo.live, komari.xubo.live"],
+    ["正在研究", "agentic coding, personal infrastructure"],
+    ["当前模式", "quietly shipping / 安静交付中"]
+  ]
+}

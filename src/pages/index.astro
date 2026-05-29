@@ -4,6 +4,8 @@ import NowPanel from '../components/NowPanel.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import LifeLog from '../components/LifeLog.astro';
 import FooterLinks from '../components/FooterLinks.astro';
+import ThemeInit from '../components/ThemeInit.astro';
+import PageScripts from '../components/PageScripts.astro';
 import '../styles/global.css';
 ---
 
@@ -13,6 +15,7 @@ import '../styles/global.css';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Xubo 的个人数字名片、极客生活流与服务入口。" />
+    <ThemeInit />
     <title>Xubo｜个人名片与生活流</title>
   </head>
   <body>
@@ -23,24 +26,6 @@ import '../styles/global.css';
       <LifeLog />
       <FooterLinks />
     </main>
-    <script>
-      const timeNode = document.querySelector('#local-time');
-
-      function updateLocalTime() {
-        if (!timeNode) return;
-
-        const formatter = new Intl.DateTimeFormat('zh-CN', {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false,
-        });
-
-        timeNode.textContent = formatter.format(new Date());
-      }
-
-      updateLocalTime();
-      window.setInterval(updateLocalTime, 1000);
-    </script>
+    <PageScripts />
   </body>
 </html>

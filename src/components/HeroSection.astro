@@ -1,13 +1,17 @@
 ---
 import { profile } from '../data/profile';
+import ThemeToggle from './ThemeToggle.astro';
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-  <div class="signal-bar" aria-label="system status">
-    <span class="status-dot" aria-hidden="true"></span>
-    <span>在线 / online</span>
-    <span class="divider">/</span>
-    <span id="local-time">--:--:--</span>
+  <div class="top-bar">
+    <div class="signal-bar" aria-label="system status">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>在线 / online</span>
+      <span class="divider">/</span>
+      <span id="local-time">--:--:--</span>
+    </div>
+    <ThemeToggle />
   </div>
 
   <div class="hero-grid">

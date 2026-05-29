@@ -1,0 +1,50 @@
+---
+import ThemeInit from '../components/ThemeInit.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import PageScripts from '../components/PageScripts.astro';
+import { profile } from '../data/profile';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="路径未找到，返回 xubo.live 首页。" />
+    <ThemeInit />
+    <title>404｜route not found</title>
+  </head>
+  <body>
+    <main class="page-shell not-found-shell" aria-labelledby="not-found-title">
+      <section class="hero not-found-panel">
+        <div class="top-bar">
+          <div class="signal-bar" aria-label="system status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>{profile.domain}</span>
+            <span class="divider">/</span>
+            <span>route not found</span>
+          </div>
+          <ThemeToggle />
+        </div>
+
+        <div class="not-found-content">
+          <p class="prompt">xubo@live:~$ cd /unknown</p>
+          <h1 id="not-found-title">404</h1>
+          <p class="tagline">route not found.</p>
+          <p class="summary">
+            这个路径暂时不存在，可能是链接过期，也可能是我还没把它构建出来。
+            你可以回到首页继续查看个人名片、生活流和服务入口。
+          </p>
+          <nav class="quick-links" aria-label="404 actions">
+            <a href="/">返回首页</a>
+            <a href="/#services">查看服务</a>
+            <a href="/#life-log">查看生活流</a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <PageScripts />
+  </body>
+</html>

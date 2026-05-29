@@ -1,0 +1,61 @@
+<script>
+  const timeNode = document.querySelector('#local-time');
+
+  function updateLocalTime() {
+    if (!timeNode) return;
+
+    const formatter = new Intl.DateTimeFormat('zh-CN', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    });
+
+    timeNode.textContent = formatter.format(new Date());
+  }
+
+  updateLocalTime();
+  window.setInterval(updateLocalTime, 1000);
+
+  const storageKey = 'xubo-theme';
+  const themeOptions = ['dark', 'light'];
+  const themeButtons = document.querySelectorAll('[data-theme-option]');
+
+  function setTheme(preference, shouldSave = true) {
+    const theme = themeOptions.includes(preference) ? preference : 'dark';
+
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.dataset.themePreference = theme;
+
+    themeButtons.forEach((button) => {
+      const isActive = button instanceof HTMLElement && button.dataset.themeOption === theme;
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+
+    if (!shouldSave) return;
+
+    try {
+      window.localStorage.setItem(storageKey, theme);
+    } catch {
+      // localStorage may be unavailable in strict privacy contexts.
+    }
+  }
+
+  function getSavedTheme() {
+    try {
+      const saved = window.localStorage.getItem(storageKey);
+      return saved && themeOptions.includes(saved) ? saved : 'dark';
+    } catch {
+      return 'dark';
+    }
+  }
+
+  setTheme(getSavedTheme(), false);
+
+  themeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!(button instanceof HTMLElement)) return;
+      setTheme(button.dataset.themeOption || 'dark');
+    });
+  });
+</script>
